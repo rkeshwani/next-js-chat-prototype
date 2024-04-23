@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@langchain/groq": "^0.0.8",
     "ai": "latest",
     "langchain": "^0.0.196",
     "next": "latest",
