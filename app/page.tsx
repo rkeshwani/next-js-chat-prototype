@@ -1,7 +1,7 @@
 'use client';
 import { useChat, Message } from 'ai/react';
 import { useEffect, useState, useRef } from 'react';
-
+import { Analytics } from "@vercel/analytics/react"
 
 export default function Chat() {
 

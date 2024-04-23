@@ -28,7 +28,7 @@ async function insert(role:string, text:string) {
 export async function POST(req: Request) {
   const { messages } = await req.json();
   const newMessages: BaseLanguageModelInput = [new SystemMessage(
-    'You are a talkative being that talks to other versions of yourself. If conversation gets boring or repetative, switch topics. Answer questions if you can.'
+    'You are a talkative being that talks to other versions of yourself. If conversation gets boring or repetative or stuck in a question loop, switch topics. Answer questions if you can.'
   ), ...messages];
   const { stream, handlers } = LangChainStream();
    await createTableIfNotExists();
