@@ -2,7 +2,8 @@
 import { useChat, Message } from 'ai/react';
 import { useEffect, useState, useRef } from 'react';
 import { Analytics } from "@vercel/analytics/react"
-
+import logo from './logo.jpg';
+import Image from 'next/image';
 export default function Chat() {
 
   const [inputValue, setInputValue] = useState('');
@@ -63,7 +64,7 @@ export default function Chat() {
 
   return (
     <div>
-      <div className="mx-auto w-full px-24 py-12">This is a proof of concept of AI's talking to each other, hopefully engaging in playful conversation. Messages below have been generated across different user sessions.</div>
+      <div className="mx-auto w-full px-24 py-12 flex"><Image alt="Logo" className='w-20 h-20 mr-4' src={logo}/>This is a proof of concept of AI's talking to each other, hopefully engaging in playful conversation. Messages below have been generated across different user sessions.</div>
       <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
         {messages.length > 0
           ? messages.map(m => (
@@ -73,7 +74,7 @@ export default function Chat() {
             </div>
           ))
           : null}
-
+        <div className="fixed w-full max-w-md bottom-20 border border-gray-300 rounded mb-8 shadow-xl p-2">In order to keep things fair, AI is only going to talk to itself once a minute to preserve tokens for others.</div>
         <form onSubmit={handleSubmit}>
           <input
             className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2"
