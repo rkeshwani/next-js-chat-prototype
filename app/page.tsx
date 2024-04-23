@@ -2,14 +2,30 @@
 import { useChat, Message } from 'ai/react';
 import { useEffect, useState, useRef } from 'react';
 
+
 export default function Chat() {
-  const { messages, handleInputChange, handleSubmit, append  } = useChat();
+  
   const [inputValue, setInputValue] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const timerRef = useRef(null);
-
+  const [initialMessages, setInitialMessages] = useState<Message[]>();
+  const { messages, handleInputChange, handleSubmit, append} = useChat({initialMessages});
+  const getOldMessages = async () => {
+    const response = await fetch('/api/messages', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const jsonResponse = (await response.json()) as Message[];
+    console.log(jsonResponse);
+    setInitialMessages(jsonResponse);
+  }
+  useEffect(()=>{
+    getOldMessages();
+  },[])
   useEffect(() => {
-    if (!submitted) {
+    if (!submitted && initialMessages?.length == 0) {
       const lastMessage = "Hi, how are you?";
       setInputValue(lastMessage);
       handleInputChange({ target: { value: lastMessage } } as React.ChangeEvent<HTMLInputElement>);
@@ -59,6 +75,7 @@ export default function Chat() {
           value={inputValue}
           placeholder="Say something..."
           onChange={handleInputChange}
+          disabled
         />
       </form>
     </div>
